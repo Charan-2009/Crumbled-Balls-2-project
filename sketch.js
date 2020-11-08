@@ -1,0 +1,42 @@
+const Engine = Matter.Engine;
+const World= Matter.World;
+const Bodies = Matter.Bodies;
+
+var engine, world;
+var ground,ball;
+var binImg,bin;
+
+function preload(){
+    binImg = loadImage("dustbingreen.png");
+}
+function setup(){
+    var canvas = createCanvas(1200,600);
+    engine = Engine.create();
+    world = engine.world;
+
+    ground = new Ground();
+    crumpledPaper = new Paper();
+
+    bin = createSprite(964,510,20,20);
+    bin.addImage(binImg);
+    bin.scale = 0.45;
+}
+
+function draw(){
+    background("white");
+    Engine.update(engine);
+
+    //text(mouseX+","+mouseY,200,200);
+
+    
+    ground.display();
+    crumpledPaper.display();
+      
+    drawSprites();
+}
+
+function keyPressed(){
+    if(keyCode === UP_ARROW){
+        Matter.Body.applyForce(crumpledPaper.body,crumpledPaper.body.position,{x:74,y:-75});
+    }
+}
